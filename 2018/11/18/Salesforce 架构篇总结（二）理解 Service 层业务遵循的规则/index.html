@@ -79,16 +79,20 @@
 
 
 
-<meta name="description" content="郭筱舟的博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="郭筱舟&#39;Blog">
-<meta property="og:url" content="http://felixguo.com/index.html">
+<meta name="description" content="主要目标 理解 Martin Fowler 为了做企业级架构而分离出 Service 层的缘由理解为什么 Apex 代码要属于 Service 层在应用和平台的开发中如何很好的契合 Service 层的代码在 salesforce 平台上用代码去实现 Service 的架构  简单概述上一篇 Blog 只是简单的介绍了 SOC 思想，将软件的结构抽象到层级应用的逻辑方面，本篇 Blog 主要将目标">
+<meta property="og:type" content="article">
+<meta property="og:title" content="层业务遵循的规则">
+<meta property="og:url" content="http://felixguo.com/2018/11/18/Salesforce 架构篇总结（二）理解 Service 层业务遵循的规则/index.html">
 <meta property="og:site_name" content="郭筱舟&#39;Blog">
-<meta property="og:description" content="郭筱舟的博客">
+<meta property="og:description" content="主要目标 理解 Martin Fowler 为了做企业级架构而分离出 Service 层的缘由理解为什么 Apex 代码要属于 Service 层在应用和平台的开发中如何很好的契合 Service 层的代码在 salesforce 平台上用代码去实现 Service 的架构  简单概述上一篇 Blog 只是简单的介绍了 SOC 思想，将软件的结构抽象到层级应用的逻辑方面，本篇 Blog 主要将目标">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://martinfowler.com/eaaCatalog/ServiceLayerSketch.gif">
+<meta property="og:image" content="https://res.cloudinary.com/hy4kyit2a/f_auto,fl_lossy,q_70/learn/modules/apex_patterns_sl/apex_patterns_sl_learn_sl_principles/images/438126cb453f78930e14b39c326953d4_image_2.png">
+<meta property="og:updated_time" content="2018-11-18T12:19:40.222Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="郭筱舟&#39;Blog">
-<meta name="twitter:description" content="郭筱舟的博客">
+<meta name="twitter:title" content="层业务遵循的规则">
+<meta name="twitter:description" content="主要目标 理解 Martin Fowler 为了做企业级架构而分离出 Service 层的缘由理解为什么 Apex 代码要属于 Service 层在应用和平台的开发中如何很好的契合 Service 层的代码在 salesforce 平台上用代码去实现 Service 的架构  简单概述上一篇 Blog 只是简单的介绍了 SOC 思想，将软件的结构抽象到层级应用的逻辑方面，本篇 Blog 主要将目标">
+<meta name="twitter:image" content="https://martinfowler.com/eaaCatalog/ServiceLayerSketch.gif">
 
 
 
@@ -118,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://felixguo.com/">
+  <link rel="canonical" href="http://felixguo.com/2018/11/18/Salesforce 架构篇总结（二）理解 Service 层业务遵循的规则/">
 
 
 
 
 
-  <title>郭筱舟'Blog</title>
+  <title>层业务遵循的规则 | 郭筱舟'Blog</title>
   
 
 
@@ -143,8 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -217,9 +220,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -249,9 +252,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/18/Salesforce 架构篇总结（二）理解 Service 层业务遵循的规则/" itemprop="url">层业务遵循的规则</a></h1>
+          <h1 class="post-title" itemprop="name headline">层业务遵循的规则</h1>
         
 
         <div class="post-meta">
@@ -301,9 +302,7 @@
       
 
       
-        
-          
-            <h2><span id="主要目标">主要目标</span></h2><blockquote>
+        <h2><span id="主要目标">主要目标</span></h2><blockquote>
 <p>理解 Martin Fowler 为了做企业级架构而分离出 Service 层的缘由<br>理解为什么 Apex 代码要属于 Service 层<br>在应用和平台的开发中如何很好的契合 Service 层的代码<br>在 salesforce 平台上用代码去实现 Service 的架构</p>
 </blockquote>
 <h2><span id="简单概述">简单概述</span></h2><p>上一篇 Blog 只是简单的介绍了 SOC 思想，将软件的结构抽象到层级应用的逻辑方面，本篇 Blog 主要将目标集中在如何去定义和实现 Service 层，它也是别的层级或者 API 调用的关键步骤。</p>
@@ -347,8 +346,6 @@
 <h1><span id="知识扩展">知识扩展</span></h1><p><a href="https://salesforce.stackexchange.com/questions/16121/sfdc-understanding-with-sharing-without-sharing-unspecified-sharing-classes" target="_blank" rel="noopener">With Sharing、Without Sharing 和 non-sharing-specified 修饰符的区别</a> </p>
 <h1><span id="在这里学到-salesforce-相关的知识的">在这里学到 Salesforce 相关的知识的</span></h1><p><a href="https://trailhead.salesforce.com/en/me/felixguo" target="_blank" rel="noopener">The fun way to learn Salesforce</a></p>
 
-          
-        
       
     </div>
     
@@ -365,154 +362,28 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://felixguo.com/2018/11/17/Salesforce 总结（一）SOC/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Felix Guo">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="郭筱舟'Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/17/Salesforce 总结（一）SOC/" itemprop="url">Salesforce 架构篇总结（一）理解 SOC</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-17T23:36:42+08:00">
-                2018-11-17
-              </time>
+              <a href="/2018/11/17/Salesforce 总结（一）SOC/" rel="next" title="Salesforce 架构篇总结（一）理解 SOC">
+                <i class="fa fa-chevron-left"></i> Salesforce 架构篇总结（一）理解 SOC
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <h2><span id="主要目标">主要目标</span></h2><blockquote>
-<p>解释 SOC 用于商业的价值<br>在使用一些需求或者平台技术中使用 SOC 来适用一些解决方案<br>将 SOC 应用到 Force.com 中<br>什么时候决定使用 SOC 技术</p>
-</blockquote>
-<hr>
-<p>作为一位公司产品的后端程猿，不能仅仅停留在为客户解决一些业务层面的问题，更为重要的是当产品迭代到一定程度，伴随而来的是难度的加大以及业务复杂度的加深，更需要在开发中融入一些重要的编程核心的想，方便及时发现产品中的 bug 以及思考对产品后期可扩展性方面的问题。</p>
-<hr>
-<h2><span id="对于socseparation-of-concerns-的理解">对于SOC(Separation of Concerns) 的理解</span></h2><p>广义上来说SOC是一种分层思想的体现，在大多数OOP语言中都有涉及，这里不再赘述，但需要强调的是，代码的功能模块是可以不断复用的，我们不提倡 copy &amp; paste，但要时刻想着复用，并且类的命名规范（class naming conventions），变量名的命名规范（variable naming conventions）都有助于代码可读性的提升，好的代码如同讲一段优美的故事，That is Good code should tell a story. </p>
-<h2><span id="soc-的一些好处">SOC 的一些好处</span></h2><p> </p><h6><span id="顺应技术革命的潮流evolution">顺应技术革命的潮流（Evolution）</span></h6> 技术不断在进步的进步的同时保证代码层级之间是可以扩展，修改，甚至要做到可以使层级之间拆卸自如，回想前端框架数十年发展的太快了，各种全家桶层出不穷，学也学不完，同时也对软件扩展性提出了很高的要求<br> <h6><span id="对影响的管控impact-management">对影响的管控（Impact management）</span></h6>当修改或者拆卸掉一些层级组件的时候，应尽量避免影响到其他层级的功能，除非是出于设计的考究而去有意去修改的<br>  <h6><span id="角色及其职能roles-and-responsibility">角色及其职能（Roles and responsibility）</span></h6>每一个层级都用其职能，不要低于或者高于其职能，比如丢弃掉一个客户端的应用或者类库，不是意味着丢去掉其业务层的逻辑，因为业务层是另一个层级的职责。<p></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">salesforce  层级分类如下：</span><br><span class="line">  </span><br><span class="line"> * 业务逻辑层（Business Logic Layer）</span><br><span class="line">    非编码(Declarative): Formula, Validation, Workflow, Process Builder, Sharing Rules</span><br><span class="line">    遍码(Coding): Apex Services, Apex Custom Actions</span><br><span class="line"> </span><br><span class="line"> * 数据处理层 （Data Access layer）</span><br><span class="line">    非编码(Declarative): Data Loaders</span><br><span class="line">    编码(Coding): SOQL, SOSL, Salesforce APIs</span><br><span class="line">    </span><br><span class="line"> * 数据库层 （Database Layer）</span><br><span class="line">    非编码(Declarative): Custom Objects, Fields, Relationships, Rollups</span><br><span class="line">    编码(Coding): Apex Triggers</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2><span id="在-forcecom-中使用-soc">在 Force.com 中使用 SOC</span></h2><ul>
-<li><p>在 App 中替代或者添加另一种 UI（Replacing or adding another UI to your app），需要考虑的是有多少代码需要去重写，或者有些 UI 的端口虽然什么都没做，但是影响到了 App 的 插入（inserting），更新（updating），验证（validating）或者计算处理（calculating）的一些功能。</p>
-</li>
-<li><p>提供公用 API（Providing a public-facing API）评估一下所实现的 API 使用已有代码库的哪一部分，不要将一些动作行为的方法作为 API 基础的调用</p>
-</li>
-<li><p>通过 Batch 类来提升应用层逻辑（Scaling your application logic via Batch Apex）使用 Batch 来增大数据吞吐量，使多个用户在登录相同的 UI 页面的时候有相一致的结果</p>
-</li>
-<li>在 Visualforce 页面或者 Lightning Component controllers 中执行复杂的业务逻辑（Working with complex action methods in your Visualforce or Lightning Component controllers）言简意赅，使用 MVC 架构，很老生常谈的东西，在随后的章节会陆续介绍</li>
-<li>让一个新的开发人员能快速上手项目的架构（Making it easy for new developers to find their way around your code base）一个新的开发人员花在熟悉代码组织架构的时间也是衡量一个项目好坏的标准之一</li>
-</ul>
-<h2><span id="表格简单的分析项目是否需要-soc">表格简单的分析项目是否需要 SOC</span></h2><p><img src="http://pib8sx71d.bkt.clouddn.com/SOC%20Appropriate.png" alt="GitHub set up"></p>
-<h2><span id="相关资料链接">相关资料链接</span></h2><p><a href="https://trailhead.salesforce.com/content/learn/modules/apex_patterns_sl/apex_patterns_sl_soc" target="_blank" rel="noopener">Understand Separation of Concerns</a></p>
-<p><a href="https://en.wikipedia.org/wiki/Separation_of_concerns" target="_blank" rel="noopener">分层思想（维基百科）</a></p>
-<h2><span id="其他">其他</span></h2><p><a href="https://trailhead.salesforce.com/en/me/felixguo" target="_blank" rel="noopener">我是在这里学到的salesforce知识</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -522,10 +393,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -533,6 +405,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -553,8 +429,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -596,6 +481,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">主要目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">简单概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">使用 Service 层的对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">对 Salesforce 平台的创新和适应性的思考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">设计上的一些考究</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">Service 层在 Apex 中的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">相关资料</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">知识扩展</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">在这里学到 Salesforce 相关的知识的</span></a></li></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -729,6 +630,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
