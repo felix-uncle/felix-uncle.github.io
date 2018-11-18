@@ -83,11 +83,11 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Salesforce 架构篇总结（一）理解 SOC">
 <meta property="og:url" content="http://felixguo.com/2018/11/17/Salesforce 总结（一）SOC/index.html">
-<meta property="og:site_name" content="Felix Blog">
+<meta property="og:site_name" content="郭筱舟&#39;Blog">
 <meta property="og:description" content="主要目标 解释 SOC 用于商业的价值在使用一些需求或者平台技术中使用 SOC 来适用一些解决方案将 SOC 应用到 Force.com 中什么时候决定使用 SOC 技术   作为一位公司产品的后端程猿，不能仅仅停留在为客户解决一些业务层面的问题，更为重要的是当产品迭代到一定程度，伴随而来的是难度的加大以及业务复杂度的加深，更需要在开发中融入一些重要的编程核心的想，方便及时发现产品中的 bug 以">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://pib8sx71d.bkt.clouddn.com/SOC%20Appropriate.png">
-<meta property="og:updated_time" content="2018-11-17T15:52:55.651Z">
+<meta property="og:updated_time" content="2018-11-18T02:36:08.297Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Salesforce 架构篇总结（一）理解 SOC">
 <meta name="twitter:description" content="主要目标 解释 SOC 用于商业的价值在使用一些需求或者平台技术中使用 SOC 来适用一些解决方案将 SOC 应用到 Force.com 中什么时候决定使用 SOC 技术   作为一位公司产品的后端程猿，不能仅仅停留在为客户解决一些业务层面的问题，更为重要的是当产品迭代到一定程度，伴随而来的是难度的加大以及业务复杂度的加深，更需要在开发中融入一些重要的编程核心的想，方便及时发现产品中的 bug 以">
@@ -127,7 +127,7 @@
 
 
 
-  <title>Salesforce 架构篇总结（一）理解 SOC | Felix Blog</title>
+  <title>Salesforce 架构篇总结（一）理解 SOC | 郭筱舟'Blog</title>
   
 
 
@@ -157,12 +157,12 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Felix Blog</span>
+        <span class="site-title">郭筱舟'Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle">Felix Blog</p>
+        <p class="site-subtitle">王语嫣乃武学词典，都不会打； 独孤求败只有九剑，只求一败；</p>
       
   </div>
 
@@ -243,7 +243,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Felix Blog">
+      <meta itemprop="name" content="郭筱舟'Blog">
     </span>
 
     
@@ -301,16 +301,16 @@
       
 
       
-        <h2 id="主要目标"><a href="#主要目标" class="headerlink" title="主要目标"></a>主要目标</h2><blockquote>
+        <h2><span id="主要目标">主要目标</span></h2><blockquote>
 <p>解释 SOC 用于商业的价值<br>在使用一些需求或者平台技术中使用 SOC 来适用一些解决方案<br>将 SOC 应用到 Force.com 中<br>什么时候决定使用 SOC 技术</p>
 </blockquote>
 <hr>
 <p>作为一位公司产品的后端程猿，不能仅仅停留在为客户解决一些业务层面的问题，更为重要的是当产品迭代到一定程度，伴随而来的是难度的加大以及业务复杂度的加深，更需要在开发中融入一些重要的编程核心的想，方便及时发现产品中的 bug 以及思考对产品后期可扩展性方面的问题。</p>
 <hr>
-<h2 id="对于SOC-Separation-of-Concerns-的理解"><a href="#对于SOC-Separation-of-Concerns-的理解" class="headerlink" title="对于SOC(Separation of Concerns) 的理解"></a>对于SOC(Separation of Concerns) 的理解</h2><p>广义上来说SOC是一种分层思想的体现，在大多数OOP语言中都有涉及，这里不再赘述，但需要强调的是，代码的功能模块是可以不断复用的，我们不提倡 copy &amp; paste，但要时刻想着复用，并且类的命名规范（class naming conventions），变量名的命名规范（variable naming conventions）都有助于代码可读性的提升，好的代码如同讲一段优美的故事，That is Good code should tell a story. </p>
-<h2 id="SOC-的一些好处"><a href="#SOC-的一些好处" class="headerlink" title="SOC 的一些好处"></a>SOC 的一些好处</h2><p> </p><h6>顺应技术革命的潮流（Evolution）</h6> 技术不断在进步的进步的同时保证代码层级之间是可以扩展，修改，甚至要做到可以使层级之间拆卸自如，回想前端框架数十年发展的太快了，各种全家桶层出不穷，学也学不完，同时也对软件扩展性提出了很高的要求<br> <h6>对影响的管控（Impact management）</h6>当修改或者拆卸掉一些层级组件的时候，应尽量避免影响到其他层级的功能，除非是出于设计的考究而去有意去修改的<br>  <h6>角色及其职能（Roles and responsibility）</h6>每一个层级都用其职能，不要低于或者高于其职能，比如丢弃掉一个客户端的应用或者类库，不是意味着丢去掉其业务层的逻辑，因为业务层是另一个层级的职责。<p></p>
+<h2><span id="对于socseparation-of-concerns-的理解">对于SOC(Separation of Concerns) 的理解</span></h2><p>广义上来说SOC是一种分层思想的体现，在大多数OOP语言中都有涉及，这里不再赘述，但需要强调的是，代码的功能模块是可以不断复用的，我们不提倡 copy &amp; paste，但要时刻想着复用，并且类的命名规范（class naming conventions），变量名的命名规范（variable naming conventions）都有助于代码可读性的提升，好的代码如同讲一段优美的故事，That is Good code should tell a story. </p>
+<h2><span id="soc-的一些好处">SOC 的一些好处</span></h2><p> </p><h6><span id="顺应技术革命的潮流evolution">顺应技术革命的潮流（Evolution）</span></h6> 技术不断在进步的进步的同时保证代码层级之间是可以扩展，修改，甚至要做到可以使层级之间拆卸自如，回想前端框架数十年发展的太快了，各种全家桶层出不穷，学也学不完，同时也对软件扩展性提出了很高的要求<br> <h6><span id="对影响的管控impact-management">对影响的管控（Impact management）</span></h6>当修改或者拆卸掉一些层级组件的时候，应尽量避免影响到其他层级的功能，除非是出于设计的考究而去有意去修改的<br>  <h6><span id="角色及其职能roles-and-responsibility">角色及其职能（Roles and responsibility）</span></h6>每一个层级都用其职能，不要低于或者高于其职能，比如丢弃掉一个客户端的应用或者类库，不是意味着丢去掉其业务层的逻辑，因为业务层是另一个层级的职责。<p></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">salesforce  层级分类如下：</span><br><span class="line">  </span><br><span class="line"> * 业务逻辑层（Business Logic Layer）</span><br><span class="line">    非编码(Declarative): Formula, Validation, Workflow, Process Builder, Sharing Rules</span><br><span class="line">    遍码(Coding): Apex Services, Apex Custom Actions</span><br><span class="line"> </span><br><span class="line"> * 数据处理层 （Data Access layer）</span><br><span class="line">    非编码(Declarative): Data Loaders</span><br><span class="line">    编码(Coding): SOQL, SOSL, Salesforce APIs</span><br><span class="line">    </span><br><span class="line"> * 数据库层 （Database Layer）</span><br><span class="line">    非编码(Declarative): Custom Objects, Fields, Relationships, Rollups</span><br><span class="line">    编码(Coding): Apex Triggers</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="在-Force-com-中使用-SOC"><a href="#在-Force-com-中使用-SOC" class="headerlink" title="在 Force.com 中使用 SOC"></a>在 Force.com 中使用 SOC</h2><ul>
+<h2><span id="在-forcecom-中使用-soc">在 Force.com 中使用 SOC</span></h2><ul>
 <li><p>在 App 中替代或者添加另一种 UI（Replacing or adding another UI to your app），需要考虑的是有多少代码需要去重写，或者有些 UI 的端口虽然什么都没做，但是影响到了 App 的 插入（inserting），更新（updating），验证（validating）或者计算处理（calculating）的一些功能。</p>
 </li>
 <li><p>提供公用 API（Providing a public-facing API）评估一下所实现的 API 使用已有代码库的哪一部分，不要将一些动作行为的方法作为 API 基础的调用</p>
@@ -320,8 +320,7 @@
 <li>在 Visualforce 页面或者 Lightning Component controllers 中执行复杂的业务逻辑（Working with complex action methods in your Visualforce or Lightning Component controllers）言简意赅，使用 MVC 架构，很老生常谈的东西，在随后的章节会陆续介绍</li>
 <li>让一个新的开发人员能快速上手项目的架构（Making it easy for new developers to find their way around your code base）一个新的开发人员花在熟悉代码组织架构的时间也是衡量一个项目好坏的标准之一</li>
 </ul>
-<h2 id="表格简单的分析项目是否需要-SOC"><a href="#表格简单的分析项目是否需要-SOC" class="headerlink" title="表格简单的分析项目是否需要 SOC"></a>表格简单的分析项目是否需要 SOC</h2><p><img src="http://pib8sx71d.bkt.clouddn.com/SOC%20Appropriate.png" alt="GitHub set up"></p>
-<p>[TOC]</p>
+<h2><span id="表格简单的分析项目是否需要-soc">表格简单的分析项目是否需要 SOC</span></h2><p><img src="http://pib8sx71d.bkt.clouddn.com/SOC%20Appropriate.png" alt="GitHub set up"></p>
 
       
     </div>
@@ -452,7 +451,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要目标"><span class="nav-number">1.</span> <span class="nav-text">主要目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对于SOC-Separation-of-Concerns-的理解"><span class="nav-number">2.</span> <span class="nav-text">对于SOC(Separation of Concerns) 的理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SOC-的一些好处"><span class="nav-number">3.</span> <span class="nav-text">SOC 的一些好处</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#undefined"><span class="nav-number">3.0.0.0.1.</span> <span class="nav-text">顺应技术革命的潮流（Evolution）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#undefined"><span class="nav-number">3.0.0.0.2.</span> <span class="nav-text">对影响的管控（Impact management）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#undefined"><span class="nav-number">3.0.0.0.3.</span> <span class="nav-text">角色及其职能（Roles and responsibility）</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#在-Force-com-中使用-SOC"><span class="nav-number">4.</span> <span class="nav-text">在 Force.com 中使用 SOC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表格简单的分析项目是否需要-SOC"><span class="nav-number">5.</span> <span class="nav-text">表格简单的分析项目是否需要 SOC</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">主要目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">对于SOC(Separation of Concerns) 的理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">SOC 的一些好处</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#undefined"><span class="nav-number">3.0.0.0.1.</span> <span class="nav-text">顺应技术革命的潮流（Evolution）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#undefined"><span class="nav-number">3.0.0.0.2.</span> <span class="nav-text">对影响的管控（Impact management）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#undefined"><span class="nav-number">3.0.0.0.3.</span> <span class="nav-text">角色及其职能（Roles and responsibility）</span></a></li></ol></li></ol><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">在 Force.com 中使用 SOC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">表格简单的分析项目是否需要 SOC</span></a></li></div>
             
 
           </div>
