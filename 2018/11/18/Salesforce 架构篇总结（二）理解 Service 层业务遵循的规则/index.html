@@ -81,16 +81,16 @@
 
 <meta name="description" content="主要目标 理解 Martin Fowler 为了做企业级架构而分离出 Service 层的缘由理解为什么 Apex 代码要属于 Service 层在应用和平台的开发中如何很好的契合 Service 层的代码在 salesforce 平台上用代码去实现 Service 的架构  简单概述上一篇 Blog 只是简单的介绍了 SOC 思想，将软件的结构抽象到层级应用的逻辑方面，本篇 Blog 主要将目标">
 <meta property="og:type" content="article">
-<meta property="og:title" content="层业务遵循的规则">
+<meta property="og:title" content="Salesforce 架构篇总结（二）理解 Service 层业务遵循的规则">
 <meta property="og:url" content="http://felixguo.com/2018/11/18/Salesforce 架构篇总结（二）理解 Service 层业务遵循的规则/index.html">
 <meta property="og:site_name" content="郭筱舟&#39;Blog">
 <meta property="og:description" content="主要目标 理解 Martin Fowler 为了做企业级架构而分离出 Service 层的缘由理解为什么 Apex 代码要属于 Service 层在应用和平台的开发中如何很好的契合 Service 层的代码在 salesforce 平台上用代码去实现 Service 的架构  简单概述上一篇 Blog 只是简单的介绍了 SOC 思想，将软件的结构抽象到层级应用的逻辑方面，本篇 Blog 主要将目标">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://martinfowler.com/eaaCatalog/ServiceLayerSketch.gif">
 <meta property="og:image" content="https://res.cloudinary.com/hy4kyit2a/f_auto,fl_lossy,q_70/learn/modules/apex_patterns_sl/apex_patterns_sl_learn_sl_principles/images/438126cb453f78930e14b39c326953d4_image_2.png">
-<meta property="og:updated_time" content="2018-11-18T12:19:40.222Z">
+<meta property="og:updated_time" content="2018-11-18T12:27:02.175Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="层业务遵循的规则">
+<meta name="twitter:title" content="Salesforce 架构篇总结（二）理解 Service 层业务遵循的规则">
 <meta name="twitter:description" content="主要目标 理解 Martin Fowler 为了做企业级架构而分离出 Service 层的缘由理解为什么 Apex 代码要属于 Service 层在应用和平台的开发中如何很好的契合 Service 层的代码在 salesforce 平台上用代码去实现 Service 的架构  简单概述上一篇 Blog 只是简单的介绍了 SOC 思想，将软件的结构抽象到层级应用的逻辑方面，本篇 Blog 主要将目标">
 <meta name="twitter:image" content="https://martinfowler.com/eaaCatalog/ServiceLayerSketch.gif">
 
@@ -128,7 +128,7 @@
 
 
 
-  <title>层业务遵循的规则 | 郭筱舟'Blog</title>
+  <title>Salesforce 架构篇总结（二）理解 Service 层业务遵循的规则 | 郭筱舟'Blog</title>
   
 
 
@@ -252,7 +252,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">层业务遵循的规则</h1>
+          <h1 class="post-title" itemprop="name headline">Salesforce 架构篇总结（二）理解 Service 层业务遵循的规则</h1>
         
 
         <div class="post-meta">
@@ -329,6 +329,7 @@
 <li>事务管理和无状态： Service 层的客户端经常有一些拥有长存活时间且不同的 Process 请求和一些消息用来执行和处理，举个例子，一个单一的请求和多个请求分隔成单独的作用范围到服务器端：管理状态（比如 Batch Apex）或者复杂的 UI 都是通过它们自己的页面状态来接受很多请求的，在状态管理上最好的方式是在做一次 callout 到 Service 层时，封装数据库操作和服务状态。换句话说，使 Service 端保持无状态，以使调用的环境灵活地使用它们自己的状态管理解决方案。例如，一个在数据库事务的作用域同样应该被包括在每一个 Service 层的方法当中，以便于调用者不用去考虑和其相关的 SavePoints</li>
 <li>配置：在 Service 层中，可能有常见的配置或行为被覆盖，合理使用方法重载，接受一个共享的选项参数，类似于 Apex 中的 DML 方法</li>
 </ul>
+<!---->
 <h1><span id="service-层在-apex-中的应用">Service 层在 Apex 中的应用</span></h1><p>情景介绍：假设在 Opportunity 页面有个自定义 Button 当点击 Button 会出现一个 Visualforce 页面，提示用户对 Opportunity Amount(或相关联的 Opportunity Line)项目应用一个折扣百分比。<br>实例展示如何将 <font color="#2E86C1">OpportunitiesService.applyDiscounts</font> 方法应用到比如 Visualforce、Batch Apex、 或者 JavaScript Remoting 这些地方上。</p>
 <p>下面的 Code 处理的是通过 StandardController 选择的单个 Opportunity，注意：controller 的错误信息是 controller 自己来处理的，而非 service，因为 visualforce 有其自身的错误表现形式。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public PageReference applyDiscount() </span><br><span class="line">&#123;</span><br><span class="line">    try </span><br><span class="line">    &#123;</span><br><span class="line">        // Apply discount entered to the current</span><br><span class="line">        Opportunity  OpportunitiesService.applyDiscounts(new Set&lt;ID&gt;&#123; standardController.getId() &#125;, DiscountPercentage);</span><br><span class="line">    &#125; </span><br><span class="line">    catch (Exception e) </span><br><span class="line">    &#123;</span><br><span class="line">        ApexPages.addMessages(e);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return ApexPages.hasMessages() ? null : standardController.view();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -342,9 +343,10 @@
 <font color="#566573">Investing in a service layer for your application offers the engineering benefits of greater reuse and adaptability, as well as provides a cleaner and more cost effective way of implementing an API for your application, a must in today’s cloud-integrated world. By closely observing the encapsulation and design considerations described above, you start to form a durable core for your application that will endure and remain a solid investment throughout the ever-changing and innovative times ahead!</font>
 
 
+
 <h1><span id="相关资料">相关资料</span></h1><p><a href="https://en.wikipedia.org/wiki/Separation_of_concerns" target="_blank" rel="noopener">Separation of concerns</a><br><a href="https://martinfowler.com/eaaCatalog/serviceLayer.html" target="_blank" rel="noopener">Martin Fowler’s Service Layer Pattern</a><br><a href="https://martinfowler.com/eaaCatalog/" target="_blank" rel="noopener">Martin Fowler’s Enterprise Architecture Patterns</a><br><a href="https://trailhead.salesforce.com/content/learn/modules/apex_patterns_sl/apex_patterns_sl_learn_sl_principles" target="_blank" rel="noopener">Learn Service Layer Principles</a></p>
 <h1><span id="知识扩展">知识扩展</span></h1><p><a href="https://salesforce.stackexchange.com/questions/16121/sfdc-understanding-with-sharing-without-sharing-unspecified-sharing-classes" target="_blank" rel="noopener">With Sharing、Without Sharing 和 non-sharing-specified 修饰符的区别</a> </p>
-<h1><span id="在这里学到-salesforce-相关的知识的">在这里学到 Salesforce 相关的知识的</span></h1><p><a href="https://trailhead.salesforce.com/en/me/felixguo" target="_blank" rel="noopener">The fun way to learn Salesforce</a></p>
+<h2><span id="其他">其他</span></h2><p><a href="https://trailhead.salesforce.com/en/me/felixguo" target="_blank" rel="noopener">我是在这里学到的salesforce知识</a></p>
 
       
     </div>
@@ -491,7 +493,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">主要目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">简单概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">使用 Service 层的对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">对 Salesforce 平台的创新和适应性的思考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">设计上的一些考究</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">Service 层在 Apex 中的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">相关资料</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">知识扩展</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">在这里学到 Salesforce 相关的知识的</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">主要目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">2.</span> <span class="nav-text">简单概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">3.</span> <span class="nav-text">使用 Service 层的对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">4.</span> <span class="nav-text">对 Salesforce 平台的创新和适应性的思考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">5.</span> <span class="nav-text">设计上的一些考究</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">Service 层在 Apex 中的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">相关资料</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number"></span> <span class="nav-text">知识扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">其他</span></a></li></ol></li></div>
             
 
           </div>
